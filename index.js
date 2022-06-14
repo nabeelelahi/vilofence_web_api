@@ -1,18 +1,20 @@
 // express and routing set up
 
 const {
-  App,
-  router
+  App
 } = require('./app/config/express')
 
 // data base set up
 
-const { client, dbConnect } = require('./app/config/db')
+const { client } = require('./app/config/db')
 
 const {
-  admin,
-  worker
-} = require('./app/routes')
+  lead,
+  category,
+  product,
+  user,
+  messasge
+} = require('./app/source')
 
 const main = App()
 
@@ -29,6 +31,6 @@ else {
 
 function execute() {
 
-  main.use(admin).use(worker)
+  main.use(lead).use(category).use(product).use(user).use(messasge)
 
 }
