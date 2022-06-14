@@ -4,7 +4,7 @@ const {
 } = require('../config/db')
 
 const adminLogin = (req, res) => {
-  const { email, password } = req.params;
+  const { email, password } = req.query;
 
   client.db("PWIS").collection("admin").findOne({ email }, function (err, result) {
     if (err) {
@@ -112,7 +112,7 @@ const registerWorkers = (req, res) => {
 
 const getHousesByStatus = (req, res) => {
 
-  const { status } = req.params;
+  const { status } = req.query;
 
   client.db("PWIS").collection("houses")
     .find({ status: status })
@@ -143,7 +143,7 @@ const getHousesByStatus = (req, res) => {
 
 const getChildren = (req, res) => {
 
-  const { status } = req.params;
+  const { status } = req.query;
 
   client.db("PWIS").collection("children")
     .find({})
@@ -174,7 +174,7 @@ const getChildren = (req, res) => {
 
 const adminSearch = (req, res) => {
 
-    const { collection } = req.params
+    const { collection } = req.query
 
     const body = req.body
 

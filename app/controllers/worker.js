@@ -5,7 +5,7 @@ const {
 
 const workerLogin = (req, res) => {
 
-    const { email, password } = req.params;
+    const { email, password } = req.query;
 
     client.db("PWIS").collection("users").findOne({ email }, function (err, result) {
         if (err) {

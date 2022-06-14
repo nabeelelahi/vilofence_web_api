@@ -1,7 +1,5 @@
 const express = require('express')
 var cors = require('cors')
-const  swaggerUI  = require('swagger-ui-express')
-const  swaggerDocs  = require('../../swagger')
 const { BASE_URL } = require('../config/constants')
 const appRoot = `${__dirname
   .replace(/[\\]/gim, '/')
@@ -31,7 +29,6 @@ module.exports = {
 
     app.listen(
       PORT,() => {
-        app.use(`${BASE_URL}/docs`, swaggerUI.serve, swaggerUI.setup(swaggerDocs))
         console.log(`server has started successfully on port : ${PORT}`)
 
       }
@@ -39,7 +36,7 @@ module.exports = {
 
     // endpoint to test if servier is working or not
 
-    app.get(`${BASE_URL}/check`, (req, res) => {
+    app.get(`${BASE_URL}check`, (req, res) => {
 
       res.send('fine')
   
