@@ -1,4 +1,5 @@
 const baseController = require('../baseControllers')
+const getFileUrl = require('../../services/fileUpload')
 
 const collection = 'product'
 
@@ -13,8 +14,8 @@ const get = async (req, res) => {
 
 const create = async (req, res) => {
     try {
+        req.body.image_url = getFileUrl(req)
         const data = await baseController.insertDoc(collection, req.body)
-        console.log(data)
         baseController.sendResponse(res, 200, `Record created successfully`, data)
     } catch (err) {
         baseController.sendResponse(res, 400, 'Something went wrong', err)
