@@ -12,7 +12,7 @@ module.exports = {
   App: () => {
 
     const app = express();
-    
+
     const path = require("path");
 
     const PORT = process.env.PORT || 7000;
@@ -22,13 +22,13 @@ module.exports = {
     app.use(express.urlencoded({ extended: true }));
 
     app.use(
-      `/${BASE_URL}/uploads/`,
-      express.static(path.join(__dirname, "uploads"))
+      BASE_URL + `public/uploads/`,
+      express.static(path.join(__dirname, "public/uploads"))
     );
     app.use(cors())
 
     app.listen(
-      PORT,() => {
+      PORT, () => {
         console.log(`server has started successfully on port : ${PORT}`)
 
       }
@@ -39,7 +39,7 @@ module.exports = {
     app.get(`${BASE_URL}check`, (req, res) => {
 
       res.send('fine')
-  
+
       return res;
     });
 

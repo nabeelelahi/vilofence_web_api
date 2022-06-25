@@ -7,8 +7,9 @@ const root = __dirname
 const storage = multer.diskStorage({
   destination: `${root}/public/uploads/`,
   filename: function (req, file, cb) {
-    console.log(file, 'fileeeeee')
-    cb(null, file.originalname)
+    const fileSplit = file.originalname.split('.')
+    const fileExtension = fileSplit[fileSplit.length - 1]
+    cb(null, 'image-' + Date.now() + '.' + fileExtension)
   }
 })
 
