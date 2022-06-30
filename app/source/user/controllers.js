@@ -18,7 +18,7 @@ const create = async (req, res) => {
     try {
         const prevData = await baseController.getDocs(collection, { email })
         console.log(prevData)
-        if (!prevData || !prevData?.length) {
+        if (!prevData || !prevData.length) {
             const data = await baseController.insertDoc(collection, req.body)
             baseController.sendResponse(res, 200, `Record created successfully`, data)
         }
