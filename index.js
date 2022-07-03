@@ -13,7 +13,8 @@ const {
   category,
   product,
   user,
-  messasge
+  messasge,
+  gate
 } = require('./app/source')
 
 const main = App()
@@ -31,6 +32,6 @@ else {
 
 function execute() {
 
-  main.use(lead).use(category).use(product).use(user).use(messasge)
+  main.use(lead).use(category).use(product).use(user).use(messasge).use(gate)
 
 }
