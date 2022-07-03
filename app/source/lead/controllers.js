@@ -78,7 +78,8 @@ const get = async (req, res) => {
 const create = async (req, res) => {
     try {
         const data = await baseController.insertDoc(collection, req.body)
-        baseController.sendResponse(res, 200, `Record created successfully`, data)
+        // const data = await baseController.getDocs(collection, req.query)
+        baseController.sendResponse(res, 200, `Record created successfully`, data.ops[0])
     } catch (err) {
         baseController.sendResponse(res, 400, 'Something went wrong', err)
     }
