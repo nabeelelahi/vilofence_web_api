@@ -3,7 +3,6 @@ const { client } = require('../../config/db')
 
 const collection = 'lead';
 const database = 'vilofence';
-const aggregrateCollection = 'product'
 
 const get = async (req, res) => {
     try {
@@ -12,59 +11,45 @@ const get = async (req, res) => {
             { $match: req.query || {} },
             {
                 $lookup: {
-                    from: aggregrateCollection,
-                    let: { fenceHeight: "$fenceHeight" },
+                    from: 'product',
+                    let: { product: "$product" },
                     pipeline: [
-                        { $match: { $expr: { $eq: ["$slug", "$$fenceHeight"] } }, }
+                        { $match: { $expr: { $eq: ["$slug", "$$product"] } }, }
                     ],
-                    as: "fenceHeight"
+                    as: "product"
                 }
             },
             {
                 $lookup: {
-                    from: aggregrateCollection,
-                    let: { fenceColor: "$fenceColor" },
+                    from: 'category',
+                    let: { category: "$category" },
                     pipeline: [
-                        { $match: { $expr: { $eq: ["$slug", "$$fenceColor"] } }, }
+                        { $match: { $expr: { $eq: ["$slug", "$$category"] } }, }
                     ],
-                    as: "fenceColor"
+                    as: "category"
                 }
             },
             {
                 $lookup: {
-                    from: aggregrateCollection,
-                    let: { fenceStyle: "$fenceStyle" },
+                    from: 'gate',
+                    let: { gate: "$gate" },
                     pipeline: [
-                        { $match: { $expr: { $eq: ["$slug", "$$fenceStyle"] } }, }
+                        { $match: { $expr: { $eq: ["$slug", "$$gate"] } }, }
                     ],
-                    as: "fenceStyle"
-                }
-            },
-            {
-                $lookup: {
-                    from: aggregrateCollection,
-                    let: { fenceType: "$fenceType" },
-                    pipeline: [
-                        { $match: { $expr: { $eq: ["$slug", "$$fenceType"] } }, }
-                    ],
-                    as: "fenceType"
+                    as: "gate"
                 }
             },
         ]).toArray()
 
         data.forEach(item => {
-            console.log(item)
-            if (item.fenceHeight && item.fenceHeight.length) {
-                item.fenceHeight = item.fenceHeight[0]
+            if (item.category && item.category.length) {
+                item.category = item.category[0]
             }
-            if (item.fenceColor && item.fenceColor.length) {
-                item.fenceColor = item.fenceColor[0]
+            if (item.product && item.product.length) {
+                item.product = item.product[0]
             }
-            if (item.fenceStyle && item.fenceStyle.length) {
-                item.fenceStyle = item.fenceStyle[0]
-            }
-            if (item.fenceType && item.fenceType.length) {
-                item.fenceType = item.fenceType[0]
+            if (item.gate && item.gate.length) {
+                item.gate = item.gate[0]
             }
         })
 
