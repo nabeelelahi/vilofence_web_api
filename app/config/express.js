@@ -15,7 +15,7 @@ module.exports = {
 
     const path = require("path");
 
-    const PORT = process.env.PORT;
+    const PORT = process.env.PORT || 0;
 
     app.use(express.json());
 
