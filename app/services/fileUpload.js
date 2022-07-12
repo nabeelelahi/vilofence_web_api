@@ -1,3 +1,5 @@
+const cloudinary = require('../config/cloudinary')
+
 function getFileUrl(req) {
 
     let file;
@@ -11,4 +13,24 @@ function getFileUrl(req) {
 
 }
 
-module.exports = getFileUrl
+async function uploadCloudinary(req) {
+    try{
+        if (req.file) {
+        const image = await cloudinary.upload(req.file.path);
+
+        return image.secure_url;
+        }
+        else{
+            return ''
+        }
+
+    }
+    catch(err){
+        return '';
+    }
+}
+
+module.exports = {
+    getFileUrl,
+    uploadCloudinary
+}
