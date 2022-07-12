@@ -1,5 +1,5 @@
 const baseController = require('../baseControllers')
-const getFileUrl = require('../../services/fileUpload')
+const { uploadCloudinary } = require('../../services/fileUpload')
 
 const collection = 'product'
 
@@ -14,7 +14,7 @@ const get = async (req, res) => {
 
 const create = async (req, res) => {
     try {
-        req.body.image_url = getFileUrl(req)
+        req.body.image_url = await uploadCloudinary(req)
         const data = await baseController.insertDoc(collection, req.body)
         baseController.sendResponse(res, 200, `Record created successfully`, data)
     } catch (err) {
